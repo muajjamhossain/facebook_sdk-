@@ -23,20 +23,41 @@
       </tbody>
     </table>
 </div>
+
+{{-- post modal --}}
 <div class="modal fade add_modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <div class="modal-body addbody">
+            <div class="modal-body add_body">
             </div>
         </div>
     </div>
 </div>
+
+
+{{-- comments modal --}}
+<div class="modal fade add_comments_modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="" id="exampleModalLabel">Comments & Reply</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body add_comments_body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @push('script')
 <script>
     $( document ).ready(function() {
@@ -76,7 +97,7 @@
                 },
                 data: {id: id},
                 success: function (data) {
-                    $('.addbody').html(data);
+                    $('.add_body').html(data);
                     $('.add_modal').modal('show');
                 },
             });
@@ -128,6 +149,8 @@
                                 cancelAction: function (e) {}
                             }
                         })
+
+                        $("#datatable").DataTable().ajax.reload();
                     }
                     if (data.status == 400) {
                         $.alert({
@@ -136,6 +159,22 @@
                         });
                     }
                 }
+            });
+        });
+
+        $('body').on('click','.view_record',function(){
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{ route('comments-modal.view')}}",
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {id: id},
+                success: function (data) {
+                    $('.add_comments_body').html(data);
+                    $('.add_comments_modal').modal('show');
+                },
             });
         });
     });

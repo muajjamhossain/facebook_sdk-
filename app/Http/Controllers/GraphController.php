@@ -24,12 +24,8 @@ class GraphController extends Controller
  
     public function retrieveUserProfile(){
         try {
- 
             $params = "first_name,last_name,age_range,gender";
- 
             $user = $this->api->get('/me?fields='.$params)->getGraphUser();
- 
-            dd($user);
  
         } catch (FacebookSDKException $e) {
  
@@ -48,8 +44,6 @@ class GraphController extends Controller
                 ])->getGraphNode()->asArray();
                 if($response['id']){
                     dump($response['id']);
-                    // dd($response);
-                    // post created
                 }
             }else {
 
@@ -116,6 +110,7 @@ class GraphController extends Controller
                     if ($post) {
                         $getdata->fb_post_id = $post['post_id']??$post['id'];
                         $getdata->fb_id = $post['id'];
+                        $getdata->status = 'active';
                         $getdata->save();
                         $status_code= 200;
                         $msg = 'Ctrated on facebook post successfully';

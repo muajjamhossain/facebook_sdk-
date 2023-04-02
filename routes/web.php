@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/getall', 'PostController@getall')->name('getall');
     Route::post('/getmodal', 'PostController@getmodal')->name('getmodal');
 
+
+    // common routes
+    Route::post('/comments-modal', 'PostController@commentsModal')->name('comments-modal.view');
+
     Route::resource('profile', ProfileController::class);
     // Route::get('profile', 'ProfileController@index')->name('profile');
     Route::get('/facebook', 'ProfileController@redirectToFacebookProvider')->name('facebook');

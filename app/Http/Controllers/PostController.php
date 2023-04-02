@@ -25,6 +25,7 @@ class PostController extends Controller
                 return '
                 <a href="javascript:void(0)" data-toggle="modal" data-id="' . $id . '" data-target=".add_modal" class="btn btn-success btn-sm openaddmodal" ><i class="fas fa-pencil-alt"></i></a> 
                 <a href="javascript:void(0)" data-toggle="modal" data-id="' . $id . '" class="btn btn-danger btn-sm delete_record" ><i class="fas fa-trash-alt"></i></a>
+                <a href="javascript:void(0)" data-toggle="modal" data-id="' . $id . '" class="btn btn-warning btn-sm view_record" ><i class="fas fa-eye"></i></a>
                 <a href="javascript:void(0)"  data-id="' . $id . '" class="btn btn-info btn-sm publishToProfile" ><i class="fab fa-facebook-square"></i></a>';
             })->addColumn('name', function ($q) {
                 return $q->name;
@@ -72,7 +73,36 @@ class PostController extends Controller
             $data = Post::where('id',$id)->first();
         }
        
-        return view('post.getmodal', compact('data'));
+        return view('post.getModal', compact('data'));
+    }
+
+    public function commentsModal(Request $request)
+    {
+        $data = array();
+        if (isset($request->id) && $request->id != '') {
+            $id = decrypt($request->id);
+            $data = Post::where('id',$id)->first();
+        }
+
+
+
+
+        $fb = new Facebook([
+        'app_id' => 'YOUR_APP_ID',
+        'app_secret' => 'YOUR_APP_SECRET',
+        ]);
+
+        $access_token = 'YOUR_USER_ACCESS_TOKEN';
+
+        $post_id = 'POST_ID';
+        $response = $fb->get('/'.$post_id.'/comments', $access_token);
+
+        // Parse the JSON response and display the comments
+        $comments = $response->getDecodedBody()['data'];
+        return view('comments', ['comments' => $comments]);
+
+       
+        return view('post.commentsModal', compact('data'));
     }
 
     public function store(Request $request)
