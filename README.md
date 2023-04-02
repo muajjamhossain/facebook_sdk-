@@ -13,11 +13,11 @@ Please check the official laravel installation guide for server requirements bef
 
 Clone the repository
 
-    get clone git@github.com:VMLearningHub/Integrating-Facebook-SDK-into-Laravel-Project.git
+    get clone https://github.com/muajjamhossain/facebook_sdk-.git
 
 Switch to the repo folder
 
-    cd Integrating-Facebook-SDK-into-Laravel-Project
+    cd facebook_sdk
 
 Install all the dependencies using composer
 
@@ -41,4 +41,4 @@ Run the database migrations (**Set the database connection in .env before migrat
 
 Start the local development server
 
-    http://localhost/Integrating-Facebook-SDK-into-Laravel-Project/
+    http://localhost/facebook_sdk/

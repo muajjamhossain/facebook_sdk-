@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('image')->nullable();
             $table->string('file_type')->nullable();
             $table->text('message')->nullable();
-            $table->enum('status', ['active', 'inactive'])->nullable()->default('active');
+            $table->enum('status', ['active', 'inactive'])->nullable()->default('inactive');
             $table->string('fb_id')->nullable();
             $table->string('fb_post_id')->nullable();
             $table->timestamps();

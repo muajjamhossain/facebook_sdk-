@@ -49,27 +49,14 @@ class ProfileController extends Controller
     public function redirectToFacebookProvider()
     {
         return Socialite::driver('facebook')->scopes([
-            "public_profile, pages_show_list", "pages_read_engagement", "pages_manage_posts", "pages_manage_metadata", "user_videos", "user_posts"
+            "public_profile",
+            "pages_show_list",
+            "pages_read_engagement",
+            "pages_manage_posts",
+            "pages_manage_metadata",
+            "user_videos",
+            "user_posts"
         ])->redirect();
-
-
-        // $ch = curl_init();
-
-        // curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cposts%7Bfull_picture%2Cmessage%2Ccreated_time%2Ccomments%7D%2Cpicture&access_token=EAAUvJR9uBiwBAKs2rMayWsIFVbeAfhzZC2zYkmqRreqB4iINeUbfaoBq5PLV7Kr97N8XG53ZAiPZAfP73gnr9PPKOae4VXjZAScksol4xQugjS2C2wJ9D3yoj2BwiKUFcjbF8Dl0NnDpq2j1KLY8t5qwqrvmDF8yaxu0k1iM7jUW4aKicn6XRubO1R1EXrr4EZBAost0I9JDPYkIQfHyifTGUqJcx6g4ZD');
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        // $result = curl_exec($ch);
-        // if (curl_errno($ch)) {
-        //     echo 'Error:' . curl_error($ch);
-        // }
-        // curl_close($ch);
-
-
-
-        // $result = json_decode($result);
-        // dd($result);
-
-
 
     }
 
@@ -81,6 +68,7 @@ class ProfileController extends Controller
               ->update([
                 'token' => $auth_user->token,
                 'facebook_app_id'  =>  $auth_user->id,
+                'status'  =>  'active',
               ]);
         return redirect()->to('/profile');
     }

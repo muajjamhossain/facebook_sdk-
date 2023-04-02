@@ -101,7 +101,6 @@ class PostController extends Controller
                     $extension =$file->getClientOriginalExtension();
                     
                     $file->move($destinationPath, $fileName);
-                    //dd($fileName);
                     $data->image = $fileName;
                     $data->file_type = $extension;
                     
